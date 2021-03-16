@@ -355,7 +355,14 @@ WHERE job = 'SALESMAN' OR empno LIKE ('78%'); -- empno는 숫자를 사용하는
 
 SELECT *
 FROM emp
-WHERE job = 'SALESMAN' OR empno BETWEEN 7800 AND 7899;
+WHERE job = 'SALESMAN' OR empno BETWEEN 7800 AND 7899; -- 오답 (이러면 두자리의 78과 세자리의 780을 조회할수가없다.)
+
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' 
+    OR empno BETWEEN 7800 AND 7899
+    OR empno BETWEEN 780 AND 789
+    OR empno = 78; -- 정답
 
 
 
