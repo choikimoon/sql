@@ -274,3 +274,39 @@ ORDER BY ename)) a
 WHERE rn BETWEEN 11 AND 14;  -- 인라인 뷰에도 (테이블) 아스테리스를 쓸 수가있다.
 
 
+SELECT *
+FROM emp
+
+SELECT *
+FROM
+(SELECT ROWNUM rn, empno, ename -- alias 적용해서 WHERE절의 이름을 확실히 한다
+FROM (SELECT empno, ename  
+        FROM emp
+        ORDER BY ename))
+WHERE rn BETWEEN (:page-1)*:pageSize + 1 AND :page*:pageSize; -- 앞에 (:)콜론을 붙여주면 변수가 된다 -- 숫자를 입력안하고 공백이있으면 문자열로 에러가남
+-- 바인딩 변수라고 한다
+
+SELECT *
+FROM
+(SELECT ROWNUM ty, mgr, sal, ename
+FROM(SELECT mgr, sal, ename
+    FROM emp
+    ORDER BY mgr))
+WHERE ty BETWEEN (:page-1) * :pageSize + 1 AND :page * :pageSize;
+
+SELECT *
+FROM
+(SELECT ROWNUM qw, job, hiredate
+FROM(SELECT job, hiredate
+    FROM emp
+    ORDER BY job DESC))
+WHERE qw BETWEEN (:page-1) * :pageSize + 1 AND :page * :pageSize;
+
+SELECT *
+FROM
+(SELECT ROWNUM km, empno, job, mgr
+    FROM(SELECT empno, job, mgr
+     FROM emp
+     Order by job DESC))
+WHERE km BETWEEN (:page-1) * :pageSize + 1 AND :page * :pageSize;
+
