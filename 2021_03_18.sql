@@ -1,3 +1,98 @@
+ROUND 
+    년원일엥서도 반올림이 가능하다
+    자주쓰이는건아닌다
+TRUNC
+    내림
+    ㅇ위와 같다
+
+/*    
+날짜 관련 함수
+
+MONTHS_BETWEEN : DATE 타입의 인자가 2개 들어간다 / start date, end date, 반환값 : 두 일자 사이의 개월수
+--- 이놈은 숫자를 반환 / 잘안씀
+--- 아래는 date 반환
+ADD_MONTHS : 몇달뒤 몇일인가  ****
+인자 : date, number 더할 개월수  == date뒤 부터 x개월 뒤의 날짜
+
+date + 90 : 일수를 구할 수 있다.
+1/15뒤 3개월 뒤 날짜 / 90일수도 잇꼬 아닐수도 있따.
+그러니까 add먼뜨로 구하자
+
+NEXT_DAY =   ***
+인자 : date, number(weekday, 주간일자) == date이후의 가장 첫번째 주간일자에 해당하는 date를 반환
+일요일 1 월 2 ~ 토 7
+LAST_DAY  ***
+인자 : date == date가 속한 월의 마지막 일자를 date로 반환
+
+*/
+
+
+-- 잘안쓰이지만 알아는 둬라
+MONTHS_BETWEEN
+SELECT ename, TO_CHAR(hiredate, 'yyyy/mm/dd HH24:mi:ss') hiredate,
+        MONTHS_BETWEEN(SYSDATE, hiredate) months_between,
+        ADD_MONTHS(SYSDATE, 5) ADD_MONTHS,
+        ADD_MONTHS(TO_DATE('2021-02-15', 'YYYY-MM-DD'), 5) ADD_MONTHS2,
+        NEXT_DAY(SYSDATE, 1) NEXT_DAY,
+        LAST_DAY(SYSDATE) LAST_DAY,
+        TO_DATE(TO_CHAR(SYSDATE, 'YYYYMM') || '01', 'YYYY-MM-DD')FIRST_DAY
+FROM EMP;
+
+/*    
+-- SYSDATE 이용 현대 월의 첫날구하기
+-- SYSTDE 년원까지 문자 + || '01'
+202103 || 01 --> 20210301
+*/
+
+-- 문제 파라미터 YYYYMM혁싱 문자사용 해당년월 ㅁ 마지막일자 구하시오 LAST_DAY(날짜)사용할라면 문자로 바꿔여ㅑ한다
+SELECT :YYYYMM, TO_CHAR(LAST_DAY(TO_DATE(:YYYYMM,'YYYYMM')), 'DD')
+FROM DUAL;
+-- 원하는 값을 넣기위해 날짜를 문자로 바꾸고
+-- 라스트데이로  마지막 일자를 뽑고
+-- 투캐릭터로 원하는 포맷을 뽑는다.
+-- 두번쨰값은 3월넣으며 31
+
+SELECT :YYYYMM, TO_CHAR(LAST_DAY(TO_DATE(:YYYYMM, 'YYYYMM')), 'MMDD')
+FROM DUAL;
+/*8
+형변환(숫자 문자 날짜)
+- 명시적 형변환
+    - TO_DATE, TO_CHAR, TO_NUMBER
+- 묵시적 형변환
+    - 
+ 
+ */
+    
+SELECT *
+FROM EMP
+WHERE empno = '7369';
+
+
+-- NUMBER
+    9 숫자 - 값을 모르면 많이넣느다
+    0 강제로 0
+    , 1000자리
+    . 소수점 
+    w 화페단위
+    $ 달러표시
+-- 잘 안쓴따
+
+
+NULL 처리 함수 : 4가지
+1. NVL(ecpr1(컬럼도 가능), expt2) // 1이 null값이 아니면 1쓰고, 1이 null값이면 2쓴다
+자바 :  if(expr1 == null)
+        sysout(expr2)
+        else
+        sysout(expr1)
+
+-- emp테이블에서 comm컬럼의 값이 null일경우 0으로 대채해서 조회
+SELECT empno, comm, NVL(comm, 1),
+        NVL(sal+comm, 0), sal + nvl(comm,0)
+FROM EMP;
+
+
+
+
 emp 테이블에서 comm 컬럼의 값이 NULL일 경우 0으로 대체해서 조회하기
 
 SELECT empno, sal, comm,
