@@ -160,9 +160,9 @@ WHERE userid IN ('cony', 'sally', 'james', 'moon');
 
 조건분기
 1. CASE 절 -- 자바 if와 비슷
-    WHEN expr1 비교식(참거짓을 판단 할 수 있는 수식) THEN 사용할 값 ==> if
-    WHEN expr2 비교식(참거짓을 판단 할 수 있는 수식) THEN 사용할 값2 ==> else if
-    WHEN expr3 비교식(참거짓을 판단 할 수 있는 수식) THEN 사용할 값3 ==> else if
+    CASE expr1 비교식(참거짓을 판단 할 수 있는 수식) THEN 사용할 값 ==> if
+    CASE expr2 비교식(참거짓을 판단 할 수 있는 수식) THEN 사용할 값2 ==> else if
+    CASE expr3 비교식(참거짓을 판단 할 수 있는 수식) THEN 사용할 값3 ==> else if
     ELSE 사용할 값4 ==> else
     END
     
@@ -343,81 +343,7 @@ emp테이블을 이용하여 다음을 구하시오
 
 SELECT deptno, MAX(sal), MIN(sal), ROUND(AVG(sal), 2), SUM(sal), COUNT(sal), COUNT(mgr), COUNT(*)
 FROM emp
-GROUP BY deptno;
-
-grp3 그룹함수 실습
---emp 테이블을 이용하여 다음을 구하시오 grp2에서 작성한 쿼리를 활용하여 deptno 대신 부서명이 나올수 있도록 수정하시요
-SELECT
-        CASE
-            WHEN deptno = 10 THEN 'ACCOUNTING'
-            WHEN deptno = 20 THEN 'RESEARCH'
-            WHEN deptno = 30 THEN 'SALES'
-            WHEN deptno = 40 THEN 'OPERATIONS'
-            ELSE 'DDIT'
-        END dname, MAX(sal), MIN(sal), ROUND(AVG(sal), 2), SUM(sal), COUNT(sal), COUNT(mgr), COUNT(*) -- 디코드로도 가능
-FROM emp
-GROUP BY deptno;
-
-grp4 그룹함수
---emp 테이블을 이용하여 다음을 구하시오 / 직원의 입사 년월별로 몇명의 직원이 입사했는지 조회하는 쿼리를 작서하세요
-
-SELECT TO_CHAR(hiredate, 'YYYYMMDD') hire_yyyymm, COUNT(*)cnt
-FROM emp
-GROUP BY TO_CHAR(hiredate, 'YYYYMMDD');
-
-
-grp5 그룹함수
---emp 테이블을 이용하여 다음을 구하시오 / 직원의 입사 년별로 몇명의 직원이 입사했는지 조회하는 쿼리를 작성하세요
-
-SELECT TO_CHAR(hiredate, 'YYYYMMDD') hire_yyyymm, COUNT(*)cnt
-FROM emp
-GROUP BY TO_CHAR(hiredate, 'YYYYMMDD');
-
-grp6
---회사에 존재하는 부서의 개수는 몇개인지 조회하는 쿼리를 작성하시오
-
-SELECT COUNT(*)
-FROM emp;
-
-grp7
---직원이 속한 부서의 개수를 조회하는 쿼리를 작성하시오 / emp 테이블 사용
-
-SELECT 
-    CASE
-        WHEN deptno = '10' THEN COUNT(deptno)
-        WHEN deptno = '20' THEN COUNT(deptno)
-        WHEN deptno = '30' THEN COUNT(deptno)
-        ELSE null
-        END cut
-FROM emp
-GROUP BY deptno;
-
-SELECT *
-FROM emp;
-SELECT COUNT(*) 
-FROM
-(SELECT deptno
-FROM emp
-GROUP BY deptno); -- 인라인으로 묶어서 그룹핑된 행의 갯수를 찾는다
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+GROUP BY deptno; 
 
 
 
