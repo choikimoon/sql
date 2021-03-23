@@ -177,7 +177,7 @@ SELECT sido, sigungu, storecategory,
         END bk
 FROM burgerstore;
 
------
+----- 도시발전지수 선생님 풀이
 
 SELECT sido, sigungu,
        ROUND((SUM(DECODE(storecategory, 'BURGER KING', 1, 0)) +
