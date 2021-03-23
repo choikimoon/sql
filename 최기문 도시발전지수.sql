@@ -10,4 +10,6 @@ FROM
  GROUP BY sido, sigungu) b
 WHERE a.sido = b.sido
 AND a.sigungu = b.sigungu
+AND a.sido = '대전'
+AND a.sigungu = '중구'
 ORDER BY di DESC;
