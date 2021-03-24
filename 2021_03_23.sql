@@ -60,7 +60,8 @@ WHERE product.pid = cycle.pid(+)
 -- customer ==> 테이블을 3개 써야한다
 
 SELECT product.*, :cid, NVL(cycle.day, 0) day, NVL(cycle.cnt, 0) cnt
-FROM product LEFT OUTER JOIN cycle ON (product.pid = cycle.pid AND cid = :cid);
+FROM product LEFT OUTER JOIN cycle ON (product.pid = cycle.pid AND cid = :cid)
+
 
 중요한거 강조
 WHERE, GROUP BY(그룹핑), JOIN

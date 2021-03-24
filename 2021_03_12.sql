@@ -30,9 +30,19 @@ sem계정에 있는 prod 테이블의 모든 컬럼을 조회하는 SELECT 쿼�
 SELECT *
 FROM prod;
 
+-- 연습
+
+SELECT *
+FROM prod;
+
 [vitta계정]에 있는 prod 테이블의 prod_id, prod_name 두개의 컬럼만 조회하는 SELECT 쿼리(SQL) 작성
 
 SELECT prod_id, prod_mane                     -- 컬럼명 오타
+FROM prod;
+
+---연습
+
+SELECT prod_id, prod_name
 FROM prod;
 
 ORA-00904 오라클에서 정의한 에러코드
@@ -48,7 +58,17 @@ SELECT1]  실습
 SELECT *
 FROM lprod;
 
+--연습
+
+SELECT *
+FROM lprod;
+
 2. buyer 테이블에서 buyer_id, buyer_name 컬럼만 조회하는 쿼리를 작성하세요
+SELECT buyer_id, buyer_name
+FROM buyer;
+
+--연습
+
 SELECT buyer_id, buyer_name
 FROM buyer;
 
@@ -56,10 +76,18 @@ FROM buyer;
 SELECT *
 FROM cart;
 
+-- 연습
+SELECT *
+FROM cart;
+
 4. member 테이블에서 mem_id, mem_pass, mem_naem 컬럼만 조죄하는 쿼리를 작성하세요
 SELECT mem_id, mem_pass, mem_naem
 FROM member;
--- 오류 뜸 찾아서 고쳐라 
+-- 오류 뜸 찾아서 고쳐라
+
+--연습
+SELECT mem_id, mem_pass, mem_name
+FROM member;
 
 컬럼정보를 보는 방법
 1. SELECT * ==> 컬럼의 이름을 알 수 있다.
@@ -119,13 +147,28 @@ select 2) 실습
 SELECT prod_id "id", prod_name "name"
 FROM prod;
 
+--연습
+
+SELECT prod_id id, prod_name name
+FROM prod;
+
 2. lprod 테이블에서 lprod_gu, lprod_nm 두 칼럼을 조회하는 쿼리를 작성하시오
     ( 단 lprod_gu -> gu, lprod_nm -> nm으로 컬럼 별칭을 지정)
 SELECT lprod_gu as "gu", lprod_nm as "nm"
 FROM lprod;
 
+--연습
+
+SELECT lprod_gu gu, lprod_nm nm
+FROM lprod;
+
 3. buyer 테이블에서 buyer_id, buyer_name 두 칼럼을 조회하는 쿼리를 작성하시오
         (단 buyer_id -> 바이어아이디, buyer_name -> 이름 으로 컬럼 별칭을 지정)
+SELECT buyer_id 바이어아이디, buyer_name 이름
+FROM buyer;
+
+--연습
+
 SELECT buyer_id 바이어아이디, buyer_name 이름
 FROM buyer;
 
@@ -184,7 +227,11 @@ DESC EMP;
 문자열 결합 실습 sel_con 1
 1. 현재 접속한 사용자가 소유한 테이블 목록을 조회
 SELECT TABLE_NAME
-FROM user_tables;    
+FROM user_tables;
+
+--연습
+SELECT TABLE_NAME
+FROM user_tables;
 
 2. 문자열 결합을 이용하여 다음과 같이 조회 되로고 쿼리를 작성하시오
 SELECT 'SELECT ' || '* '|| 'FROM ' || table_name ||';'
@@ -215,11 +262,21 @@ SELECT *
 FROM emp
 WHERE deptno = 10;
 
+-연습
+
+SELECT *
+FROM emp
+WHERE deptno = 10;
+
 
 -- 유저 테이블에서 유저아이디 칼럼의 값이 브라운인 사용자만 조회
 SELECT *
 FROM users
 WHERE userid = 'brown';
+
+--연습
+SELECT *
+FROM users;
 더블코데이션 x 문자열 표기 잘못이고
 그냥쓰면 컬럼으로 인식
 **** SQL 키워드는  대.소문자르 가리지 않지만 , 데이터값은 대.소문자를 가린다.

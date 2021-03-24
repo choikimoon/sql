@@ -18,3 +18,10 @@ FROM EMP;
 
 SELECT empno, ename
 FROM EMP;
+
+--- 연습
+
+SELECT  *
+FROM emp;
+
+--14개의 행을 가지고 있으며 8개의 컬럼 / EMPNO, ENAME, JOB, HIREDATE SAL MGR COMM DEPTNO
