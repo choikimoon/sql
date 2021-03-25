@@ -24,7 +24,29 @@ FROM emp
 WHERE deptno = (SELECT deptno
                 FROM emp
                 WHERE ename = 'SMITH');
+                
+--- 연습
 
+SELECT
+    deptno
+FROM
+    emp
+WHERE
+    ename = 'SMITH';
+
+SELECT
+    *
+FROM
+    emp
+WHERE
+    deptno = (
+        SELECT
+            deptno
+        FROM
+            emp
+        WHERE
+            ename = 'SMITH'
+    );
 //서브쿼리 ==> 한결과를 가져다 쓰는것
 // (=)를 쓰기때문에 2개의 값이 오면 안됨
 
@@ -70,6 +92,36 @@ FROM emp
 WHERE sal >= (SELECT AVG(sal) -- 서브쿼리 쓰고 직원이 바뀔때마다 손을 안쓰고 자동으로 바꿔줌
                 FROM emp);
                 
+-- 연습
+
+SELECT
+    *
+FROM
+    emp;
+
+SELECT
+    AVG(sal)
+FROM
+    emp;
+
+SELECT
+    COUNT(*)
+FROM
+    emp
+WHERE
+    sal >= 2073;
+
+SELECT
+    COUNT(*)
+FROM
+    emp
+WHERE
+    sal >= (
+        SELECT
+            AVG(sal)
+        FROM
+            emp
+    );
 
 서브쿼리 (실습 sub 2)
 평균 급여보다 높은 급여를 받는 직원의 정보를 조회하세요
@@ -381,9 +433,16 @@ WHERE cid = 1;
 
 SELECT *
 FROM product 
-WHERE pid   NOT IN (SELECT pid
-            FROM cycle
-            WHERE cid = 1);
+WHERE pid NOT
+in
+
+( SELECT
+    pid
+  FROM
+    cycle
+  WHERE
+    cid = 1
+);
 
 
 
