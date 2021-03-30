@@ -10,7 +10,7 @@ SELECT
 FROM
     (
         SELECT
-            DECODE(day_num,1,week_num + 1,week_num) AS week_num,
+            DECODE(day_num,1,week_num + 1,week_num) week_num,
             day_num,
             month_day
         FROM
@@ -18,30 +18,30 @@ FROM
                 SELECT
                     DECODE(january,'Y',
                         CASE
-                            WHEN TO_CHAR(month_day,'DD') <= '1'
+                            WHEN TO_CHAR(month_day,'DD') <= '31'
                                  AND TO_CHAR(month_day,'IW') > '06' THEN '00'
                             ELSE TO_CHAR(month_day,'IW')
-                        END,TO_CHAR(month_day,'IW') ) AS week_num,
-                    TO_CHAR(month_day,'D') AS day_num,
-                    rnum AS month_day
+                        END,TO_CHAR(month_day,'IW') ) week_num,
+                    TO_CHAR(month_day,'D') day_num,
+                    rnum month_day
                 FROM
                     (
                         SELECT
-                            a.start_dt + ( b.rnum - 1 ) AS month_day,
+                            a.start_dt + ( b.rnum - 1 ) month_day,
                             a.january,
                             b.rnum
                         FROM
                             (
                                 SELECT
                                     TO_DATE(:yyyymm
-                                    || '01','YYYYMMDD') AS start_dt,
-                                    DECODE(substr(:yyyymm,5,2),'01','Y') AS january
+                                    || '01','YYYYMMDD') start_dt,
+                                    DECODE(substr(:yyyymm,5,2),'01','Y') january
                                 FROM
                                     dual
                             ) a,
                             (
                                 SELECT
-                                    level AS rnum
+                                    level rnum
                                 FROM
                                     dual
                                 CONNECT BY
