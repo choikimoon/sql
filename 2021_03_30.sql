@@ -174,27 +174,64 @@ PARTITION BY deptno : 같은 부서코드를 갖는 row를 그룹으로 묶는�
 ORDER BY sal DESC : 그룹내에서 sal로 row의 순서를 내림차순으로 정한다
 RANK() : 파티션 단위안에서 정렬 순서대로 순위를 부여한다
 
-SELECT a.ename, a.sal, a.deptno, b.rank
+SELECT
+    a.ename,
+    a.sal,
+    a.deptno,
+    b.rank
 FROM
-(SELECT a.*, ROWNUM rn
-FROM
-    (SELECT ename, sal, deptno
-    FROM emp
-    ORDER BY deptno, sal DESC) a) a,
-
-(SELECT ROWNUM rn, rank
-FROM
-(SELECT a.rn rank
-FROM
-    (SELECT ROWNUM rn
-        FROM emp) a,
-    (SELECT deptno, COUNT(*) cnt
-        FROM emp
-        GROUP BY deptno
-        ORDER BY deptno) b
-    WHERE a.rn <= b.cnt
-ORDER BY b.deptno, a.rn)) b
-WHERE a.rn = b.rn;
+    (
+        SELECT
+            a.*,
+            ROWNUM rn
+        FROM
+            (
+                SELECT
+                    ename,
+                    sal,
+                    deptno
+                FROM
+                    emp
+                ORDER BY
+                    deptno,
+                    sal DESC
+            ) a
+    ) a,
+    (
+        SELECT
+            ROWNUM rn,
+            rank
+        FROM
+            (
+                SELECT
+                    a.rn rank
+                FROM
+                    (
+                        SELECT
+                            ROWNUM rn
+                        FROM
+                            emp
+                    ) a,
+                    (
+                        SELECT
+                            deptno,
+                            COUNT(*) cnt
+                        FROM
+                            emp
+                        GROUP BY
+                            deptno
+                        ORDER BY
+                            deptno
+                    ) b
+                WHERE
+                    a.rn <= b.cnt
+                ORDER BY
+                    b.deptno,
+                    a.rn
+            )
+    ) b
+WHERE
+    a.rn = b.rn;
 
 -- 분석함수를 쓰면 간단하고 효율적으로 사용가능하지만 잘못된건아니다
 
